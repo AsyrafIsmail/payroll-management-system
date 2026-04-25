@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('department_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
+            $table->string('name');
+            $table->string('position');
+            $table->decimal('basic_salary', 10, 2);
+            $table->decimal('allowance', 10, 2)->default(0);
+            $table->integer('overtime_hours')->default(0);
+            $table->decimal('hourly_rate', 10, 2)->default(0);
             $table->timestamps();
         });
     }

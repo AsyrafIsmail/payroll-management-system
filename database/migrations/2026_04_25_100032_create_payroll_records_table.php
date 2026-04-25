@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('payroll_records', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
+            $table->tinyInteger('month');
+            $table->smallInteger('year');
+            $table->decimal('gross_pay', 10, 2);
+            $table->decimal('overtime_pay', 10, 2);
+            $table->decimal('tax', 10, 2);
+            $table->decimal('epf_employee', 10, 2);
+            $table->decimal('epf_employer', 10, 2);
+            $table->decimal('net_pay', 10, 2);
             $table->timestamps();
+            $table->unique(['employee_id', 'month', 'year']);
         });
     }
 
