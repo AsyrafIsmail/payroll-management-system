@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DepartmentController extends Controller
 {
@@ -12,7 +13,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $departments = Department::withCount('employees')->paginate(10);
+
+        return view('departments.index', compact('departments'));
     }
 
     /**
@@ -20,7 +23,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('departments.create');
     }
 
     /**
@@ -28,7 +31,13 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['requried', 'string', 'max:100', 'unique:departments, name'],
+        ]);
+
+        Department::create($validated);
+
+        return redirect()->route('departments.index')->with('success', 'Department created successfully.');
     }
 
     /**
@@ -44,7 +53,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+        return view('departments.edit', compact('department'));
     }
 
     /**
@@ -52,7 +61,13 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:100', Rule::unique('departments')->ignore($department->id)],
+        ]);
+
+        $department->update($validated);
+
+        return redirect()->route('departments.index')->with('success', 'Department updated successfully.');
     }
 
     /**
@@ -60,6 +75,12 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        if($department->employees()->exists()) {
+            return back()->with('error', 'Department cannot be deleted because it has employees.');
+        }
+
+        $department->delete();
+
+        return redirect()->route('departments.index')->with('success', 'Department deleted successfully.');
     }
 }
