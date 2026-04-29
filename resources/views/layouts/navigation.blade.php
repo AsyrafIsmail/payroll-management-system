@@ -15,6 +15,23 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('departments.index')" :active="request()->routeIs('departments.*')">
+                        Departments
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('employees.index')" :active="request()->routeIs('employees.*')">
+                        Employees
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('payroll.create')" :active="request()->routeIs('payroll.create')">
+                        Run Payroll
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('payroll.index')" :active="request()->routeIs('payroll.index')">
+                        Payroll History
+                    </x-nav-link>
+
                 </div>
             </div>
 
