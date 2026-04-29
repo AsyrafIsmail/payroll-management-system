@@ -10,7 +10,7 @@ class PayrollRecord extends Model
         'employee_id', 'month', 'year', 'gross_pay', 'overtime_pay',
         'tax', 'epf_employee', 'epf_employer', 'net_pay'];
 
-    public function employees() {
+    public function employee() {
         return $this->belongsTo(Employee::class);
     }
 }

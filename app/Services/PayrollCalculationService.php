@@ -22,7 +22,8 @@ class PayrollCalculationService {
             'gross_pay' => round($grossPay, 2),
             'tax' =>round($tax, 2),
             'epf_employee' => round($epfEmployee, 2),
-            'epf_employer' => round($netPay, 2)
+            'epf_employer' => round($epfEmployer, 2),
+            'net_pay' => round($netPay, 2),
         ];
     }
 }
