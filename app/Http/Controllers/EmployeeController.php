@@ -15,7 +15,7 @@ class EmployeeController extends Controller
     {
         $departments = Department::orderBy('name')->get();
 
-        $employees = Employee::with('departments')->when($request->department_id, function ($query) use ($request) {
+        $employees = Employee::with('department')->when($request->department_id, function ($query) use ($request) {
             $query->where('department_id', $request->department_id);
         })
         ->latest()
