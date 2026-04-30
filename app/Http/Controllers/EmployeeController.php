@@ -31,7 +31,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $departments = Department::ordeyBy('name')->get();
+        $departments = Department::orderBy('name')->get();
 
         return view('employees.create', compact('departments'));
     }
@@ -42,7 +42,7 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'department_id' => ['required', 'exist:departments, id'],
+            'department_id' => ['required', 'exists:departments,id'],
             'name' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
             'basic_salary' => ['required', 'numeric', 'min:0'],
@@ -68,9 +68,9 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        $departments = Department::ordeyBy('name')->get();
+        $departments = Department::orderBy('name')->get();
 
-        return view('employees.index', compact('employee', 'departments'));
+        return view('employees.edit', compact('employee', 'departments'));
     }
 
     /**
@@ -79,15 +79,16 @@ class EmployeeController extends Controller
     public function update(Request $request, Employee $employee)
     {
         $validated = $request->validate([
-            'department_id' => ['required', 'exist:departments, id'],
+            'department_id' => ['required', 'exists:departments,id'],
             'name' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
             'basic_salary' => ['required', 'numeric', 'min:0'],
+            'allowance' => ['required', 'numeric', 'min:0'],
             'overtime_hours' => ['required', 'integer', 'min:0'],
             'hourly_rate' => ['required', 'numeric', 'min:0'],
         ]);
 
-        Employee::update($validated);
+        $employee->update($validated);
 
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
     }

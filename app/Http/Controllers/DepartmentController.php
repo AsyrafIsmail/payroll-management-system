@@ -32,7 +32,7 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['requried', 'string', 'max:100', 'unique:departments, name'],
+            'name' => ['required', 'string', 'max:100', 'unique:departments,name'],
         ]);
 
         Department::create($validated);
