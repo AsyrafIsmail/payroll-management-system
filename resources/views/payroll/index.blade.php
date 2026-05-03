@@ -77,7 +77,7 @@
                     <tbody class="divide-y divide-gray-200">
                         @forelse($payrollRecords as $record)
                             <tr>
-                                <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                                <td class="px-6 py-4">{{ $payrollRecords->firstItem() + $loop->index }}</td>
                                 <td class="px-6 py-4 font-medium">{{ $record->employee->name }}</td>
                                 <td class="px-6 py-4">{{ $record->employee->department->name }}</td>
                                 <td class="px-6 py-4">
