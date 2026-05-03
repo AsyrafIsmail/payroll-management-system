@@ -30,4 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/payslip/{payrollRecord}/pdf', [PayslipController::class, 'pdf'])->name('payslip.pdf');
+
 require __DIR__.'/auth.php';

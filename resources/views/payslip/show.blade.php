@@ -134,6 +134,13 @@
                     Generated on {{ $payrollRecord->created_at->format('d M Y, h:i A') }}
                 </div>
 
+                <div class="mt-6">
+                    <a href="{{ route('payslip.pdf', $payrollRecord) }}"
+                        class="px-4 py-2 bg-green-600 text-white rounded-md">
+                        Download PDF
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
