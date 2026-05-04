@@ -175,11 +175,13 @@ Unit tests cover payroll calculation logic using Pest.
 ---
 
 ## Assumptions and Decisions
-- Payroll records store calculated values to preserve historical accuracy
-- Salary-related fields are snapshotted into payroll records
-- Employee updates do not affect past payroll records
+
+- Payroll records store calculated values (e.g. gross_pay, net_pay) to preserve computed results
+- Employee salary data (e.g. basic salary, allowance) is retrieved dynamically from the employee table
+- This implementation follows the provided database structure without introducing additional snapshot fields
+- Employee updates may affect how historical payroll data is displayed
 - Docker is included to provide a consistent development environment
-- Frontend assets are compiled using npm run build for Docker setup
+- Frontend assets are compiled using `npm run build` for Docker setup
 
 ---
 
